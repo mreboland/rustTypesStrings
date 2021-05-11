@@ -35,4 +35,20 @@ fn main() {
     "###);
 
     // We can add as few or as many pound signs as needed to make it clear where the string ends.
+
+
+
+    // Byte Strings
+
+    // A string literal with the b prefix is a byte string. Such a string is a slice of u8 values, that is, bytes, rather than Unicode text:
+    let method = b"GET";
+    assert_eq!(method, &[b'G', b'E', b'T']);
+
+    // This combines with all the other string syntax previously learned. Byte strings can span multiple lines, use escape sequences, and use backslashes to join lines. Raw byte strings start with br".
+
+    // Byte strings can't contain arbitrary Unicode characters. They must make do with ASCII and \xHH escape sequences.
+
+    // The type method shown here is &[u8; 3]: it's a reference to an array of three bytes. It doesn't have any of the string methods that will be discussed shortly. The most string-like thing about it is the syntax we used to write it.
+
+    
 }
