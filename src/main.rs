@@ -124,6 +124,17 @@ fn main() {
     }
 
     // Keep in mind that given the nature of Unicode, simple char-by-char comparison does not always give the expected answers. For example, the Rust strings "th\u{e9}" and "the\u{301}" are both valid Unicode representations for thé, the French word for tea. Unicode says they should both be displayed and processed in the same way, but Rust treats them as two completely distinct strings. More on these issues are covered in chapt 17.
-    
+
+
+
+    // Other String-Like Types
+
+    // Rust guarantees that strings are valid UTF-8. Sometimes a program really needs to be able to deal with strings that are not valid Unicode. This usually happens when a Rust program has to inter-operate with some other system that doesn't enforce any such rules. For example, in most operating systems it's easy to create a filename that isn't valid Unicode. The solution?
+    // Rust offers a few string-like types for these situations:
+    // 1. Stick to String and &str for Unicode text.
+    // 2. When working with filenames, use std::path::PathBuf and &Path instead.
+    // 3. When working with binary data that isn't character data at all, use Vec<u8> and &[u8].
+    // 4. When working with environment variable names and command-line arguments in the native form presented by the operating system, use OsString and &OsStr.
+    // 5. When iter-operating with C libraries that use null-terminated strings, use std::ffi::CString and &CStr.
 
 }
