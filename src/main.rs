@@ -50,5 +50,33 @@ fn main() {
 
     // The type method shown here is &[u8; 3]: it's a reference to an array of three bytes. It doesn't have any of the string methods that will be discussed shortly. The most string-like thing about it is the syntax we used to write it.
 
+
+
+    // Strings in Memory
+
+    // Rust strings are sequences of Unicode characters, but they are not stored in memory as arrays of chars. Instead, they are stored using UTF-8, a variable-width encoding. Each ASCII character in a string is stored in one byte. Other characters take up multiple bytes.
+    // Ex: Showing String and &str values create by the code (see page 112 for diagram):
+    let noodles = "noodles".to_string();
+    let oodles = &noodles[1..];
+    let poodles = "ಠ_ಠ";
+
+    // A String has a resizable buffer holding UTF-8 text. The buffer is allocated on the heap, so it can resize its buffer as needed or requested. In the example, noodles is a String that owns an eight-byte buffer, of which seven are in use. We can think of a String as a Vec<u8> that is guaranteed to hold well-formed UTF-8. In fact, this is how String is implemented.
+
+    // A &str (pronounced "stir" or "string slice") is a reference to a run of UTF-8 text owned by someone else, it "borrows" the text. In the example, oodles is a &str referring to the last six bytes of the text belonging to noodles, so it represents the text "oodles". Like other slice reference, a &str is a fat pointer, containing both the address of the actual data and its length. We can think of a &str as being nothing more than a &[u8] that is guaranteed to hold well-formed UTF-8.
+
+    // A string literal is a &str that refers to preallocated text, typically stored in read-only memory along with the program's machine code. In the preceding example, poodles is a string literal, pointing to seven bytes that are created when the program begins execution, and that lasts until it exits.
+
+    // A String or &str's.len() method returns its length. The length is measured in bytes, not characters:
+    assert_eq!("ಠ_ಠ".len(), 7);
+    assert_eq!("ಠ_ಠ".chars().count(), 3);
+
+    // It's impossible to modify a &str:
+    let mut s = "hello";
+    s[0] = 'c'; // error: the type `str` cannot be mutably indexed
+    s.push('\n'); // error: no method named `push` found for type `&str`
+
+    // For creating new strings at runtime, use String.
+
     
+
 }
