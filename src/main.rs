@@ -77,6 +77,36 @@ fn main() {
 
     // For creating new strings at runtime, use String.
 
-    
+
+
+    // String
+
+    // &str is very much like &[T]: a fat pointer to some data. String is analogous to Vec<T>:
+    //                                                 Vec<T>             String
+    // Automatically frees buffers                     Yes                Yes
+    // Growable                                        Yes                Yes
+    // ::new() and ::with_capacity() static methods    Yes                Yes
+    // .reserve() and .capacity() methods              Yes                Yes
+    // .push() and .pop() methods                      Yes                Yes
+    // Range syntax v[start..stop]                     Yes, returns &[T]  Yes, returns &str
+    // Automatic conversion                            &Vec<T> to &[T]    &String to &str
+    // Inherits methods                                From &[T]          From &str
+
+    // Like a Vec, each String has its own heap-allocated buffer that isn't shared with any other String. When a String variable goes out of scope, the buffer is automatically freed, unless the String was moved.
+
+    // There are several ways to create Strings:
+    // 1. The .to_string() method converts a &str to a String. This copies the string:
+    let error_message = "too many pets".to_string();
+    // 2. The format!() macro works just like println!(), except that it returns a new String instead of writing text to stdout, and it doesn't automatically add a newline at the end.
+    assert_eq!(format!("{}°{:02}′{:02}″N", 24, 5, 23),
+        "24°05′23″N".to_string());
+    // 3. Arrays, slices, and vectors of strings have two methods, .concat(), and .join(sep), that form a new String from many strings.
+    let bits = vec!["veni", "vidi", "vici"];
+    assert_eq!(bits.concat(), "venividivici");
+    assert_eq!(bits.join(", "), "veni, vidi, vici");
+
+    // 
+
+
 
 }
