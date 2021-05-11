@@ -105,8 +105,25 @@ fn main() {
     assert_eq!(bits.concat(), "venividivici");
     assert_eq!(bits.join(", "), "veni, vidi, vici");
 
-    // 
+    // The choice sometimes arises of which type to use: &str or String. For now, it will suffice to point out that a &str can refer to any slice of any string, whether it is a string literal (stored in the executable) or a String (allocated and freed at run time). This means that &str is more appropriate for function arguments when the caller should be allowed to pass either kind of string.
 
 
+
+    // Using Strings
+
+    // Strings support the == and != operators. Two strings are equal if they contain the same characters in the same order (regardless of whether they point to the same location in memory).
+    assert!("ONE".to_lowercase() == "one");
+
+    // Strings also support the comparison operators <, <=, >, and >=, as well as many useful methods and functions that can be found in the online docs by searching for str or std::str module. Examples:
+    assert!("peanut".contains("nut"));
+    assert_eq!("ಠ_ಠ".replace("ಠ", "■"), "■_■");
+    assert_eq!(" clean\n".trim(), "clean");
+
+    for word in "veni, vidi, vici".split(", ") {
+        assert!(word.starts_with("v"));
+    }
+
+    // Keep in mind that given the nature of Unicode, simple char-by-char comparison does not always give the expected answers. For example, the Rust strings "th\u{e9}" and "the\u{301}" are both valid Unicode representations for thé, the French word for tea. Unicode says they should both be displayed and processed in the same way, but Rust treats them as two completely distinct strings. More on these issues are covered in chapt 17.
+    
 
 }
